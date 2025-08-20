@@ -1,0 +1,20 @@
+{
+  "title": "Copyright Songs",
+  "description": "Song covers for you",
+  "songs": [
+    {
+      "filename": "song3-shazia",
+      "title": "Song 3",
+      "artist": "Shazia",
+      "album": "Copyright Songs",
+      "year": "2024"
+    },
+    {
+      "filename": "song4-shazia",
+      "title": "Song 4",
+      "artist": "Shazia",
+      "album": "Copyright Songs",
+      "year": "2024"
+    }
+  ]
+}

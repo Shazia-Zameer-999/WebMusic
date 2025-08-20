@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Molten Core */
+
+  /* Primary Text & Icons */
+  --text-primary: #f1f1f1;
+  --text-secondary: #b3b3b3;
+  --text-on-accent: #000000;
+  --text-on-accent-dark: #ffffff;
+  --icon-color: #f1f1f1;
+
+  /* Backgrounds */
+  --bg-dark: #0f0f0f; /* Pitch Black */
+  --bg-off-dark: #1c1c1c; /* Charcoal */
+  --bg-item: #282828;
+  --bg-item-hover: #3a2e2a;
+  --bg-search: #1c1c1c;
+  --bg-input-focus: rgba(255, 215, 0, 0.1);
+  --bg-navbar: #0f0f0f;
+
+  /* Primary Accent (Reds, Oranges & Yellows) */
+  --accent-primary: #dc143c; /* Crimson Red */
+  --accent-primary-hover: #b21e35;
+  --accent-secondary: #ff8c00; /* Dark Orange */
+  --accent-light: #ffd700; /* Gold */
+  --accent-button: #dc143c;
+  --accent-button-hover: #b21e35;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #0f0f0f, #282828, #3a2e2a);
+  --grad-card-hover-bg: linear-gradient(135deg, #1c1c1c, #dc143c, #ff8c00, #1c1c1c);
+  --grad-playbar-bg: linear-gradient(to right, #0f0f0f, #1c1c1c, #0f0f0f);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-primary), var(--accent-secondary), var(--accent-light));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(255, 215, 0, 0.3);
+  --shadow-glow-medium: rgba(255, 140, 0, 0.4);
+  --shadow-glow-strong: rgba(255, 140, 0, 0.6);
+  --shadow-glow-primary: rgba(220, 20, 60, 0.55);
+  --shadow-card-glow: rgba(220, 20, 60, 0.4);
+  --shadow-card-dark: rgba(0, 0, 0, 0.6);
+  --shadow-song-hover: rgba(255, 140, 0, 0.3);
+  --shadow-playbar: rgba(220, 20, 60, 0.3);
+  --shadow-icon-hover: rgba(255, 215, 0, 0.6);
+  --text-glow-1: #ff8c00;
+  --text-glow-2: #dc143c;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

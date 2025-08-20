@@ -1,0 +1,59 @@
+:root {
+  /* 🎨 Theme: Royal Amethyst */
+
+  /* Primary Text & Icons */
+  --text-primary: #3d315b; /* Deep Indigo */
+  --text-secondary: #7e739f;
+  --text-on-accent: #ffffff;
+  --text-on-accent-dark: #ffffff;
+  --icon-color: #3d315b;
+
+  /* Backgrounds */
+  --bg-dark: #f4f2f7; /* Very light lavender */
+  --bg-off-dark: #e9e6ef;
+  --bg-item: #ffffff;
+  --bg-item-hover: #e9e6ef;
+  --bg-search: #e9e6ef;
+  --bg-input-focus: rgba(147, 112, 219, 0.1);
+  --bg-navbar: #ffffff;
+
+  /* Primary Accent (Purples & Magentas) */
+  --accent-primary: #9370db; /* Medium Purple */
+  --accent-primary-hover: #a380e6;
+  --accent-secondary: #c71585; /* Medium Violet Red for a pop */
+  --accent-light: #d8bfd8; /* Thistle */
+  --accent-button: #9370db;
+  --accent-button-hover: #a380e6;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #ffffff, #f4f2f7, #ffffff);
+  --grad-card-hover-bg: linear-gradient(135deg, #ffffff, #e9e6ef, #ffffff);
+  --grad-playbar-bg: linear-gradient(
+    to right,
+    #483d8b,
+    /* Dark Slate Blue */ #9370db,
+    /* Medium Purple */ #c71585 /* Magenta Pop */
+  );
+  --grad-slider-bg: linear-gradient(
+    to right,
+    var(--accent-primary),
+    var(--accent-light)
+  );
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(147, 112, 219, 0.15);
+  --shadow-glow-medium: rgba(147, 112, 219, 0.25);
+  --shadow-glow-strong: rgba(147, 112, 219, 0.35);
+  --shadow-glow-primary: rgba(147, 112, 219, 0.45);
+  --shadow-card-glow: rgba(147, 112, 219, 0.2);
+  --shadow-card-dark: rgba(72, 61, 139, 0.1);
+  --shadow-song-hover: rgba(233, 230, 239, 0.9);
+  --shadow-playbar: rgba(147, 112, 219, 0.25);
+  --shadow-icon-hover: rgba(147, 112, 219, 0.5);
+  --text-glow-1: #9370db;
+  --text-glow-2: #d8bfd8;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+}

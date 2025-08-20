@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Forest Serenity */
+
+  /* Primary Text & Icons */
+  --text-primary: #f0ead6; /* Eggshell White */
+  --text-secondary: #c2bba3;
+  --text-on-accent: #f0ead6;
+  --text-on-accent-dark: #f0ead6;
+  --icon-color: #f0ead6;
+
+  /* Backgrounds */
+  --bg-dark: #1c2b2d; /* Deep Forest Green */
+  --bg-off-dark: #2c3e3a;
+  --bg-item: #3e5045;
+  --bg-item-hover: #506255;
+  --bg-search: rgb(44, 62, 58);
+  --bg-input-focus: rgba(240, 234, 214, 0.1);
+  --bg-navbar: #1c2b2d;
+
+  /* Primary Accent (Greens & Oranges) */
+  --accent-primary: #7d9a74; /* Muted Green */
+  --accent-primary-hover: #67805e;
+  --accent-secondary: #d68c45; /* Warm Orange */
+  --accent-light: #a3b899;
+  --accent-button: #d68c45;
+  --accent-button-hover: #b8783a;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #1c2b2d, #2c3e3a, #3e5045);
+  --grad-card-hover-bg: linear-gradient(135deg, #2c3e3a, #7d9a74, #2c3e3a);
+  --grad-playbar-bg: linear-gradient(to right, #1c2b2d, #2c3e3a, #1c2b2d);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(214, 140, 69, 0.3);
+  --shadow-glow-medium: rgba(214, 140, 69, 0.4);
+  --shadow-glow-strong: rgba(214, 140, 69, 0.6);
+  --shadow-glow-primary: rgba(125, 154, 116, 0.55);
+  --shadow-card-glow: rgba(125, 154, 116, 0.4);
+  --shadow-card-dark: rgba(0, 0, 0, 0.6);
+  --shadow-song-hover: rgba(214, 140, 69, 0.3);
+  --shadow-playbar: rgba(125, 154, 116, 0.3);
+  --shadow-icon-hover: rgba(214, 140, 69, 0.6);
+  --text-glow-1: #a3b899;
+  --text-glow-2: #7d9a74;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Emerald City */
+
+  /* Primary Text & Icons */
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-on-accent: #001a00;
+  --text-on-accent-dark: #001a00;
+  --icon-color: #e0e0e0;
+
+  /* Backgrounds */
+  --bg-dark: #011411; /* Deep Emerald Green/Black */
+  --bg-off-dark: #042921;
+  --bg-item: #073b31;
+  --bg-item-hover: #125447;
+  --bg-search: #042921;
+  --bg-input-focus: rgba(212, 175, 55, 0.1);
+  --bg-navbar: #011411;
+
+  /* Primary Accent (Emeralds & Golds) */
+  --accent-primary: #00a86b; /* Jade Green */
+  --accent-primary-hover: #008f5b;
+  --accent-secondary: #d4af37; /* Gold */
+  --accent-light: #50c878; /* Emerald Green */
+  --accent-button: #00a86b;
+  --accent-button-hover: #008f5b;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #011411, #042921, #073b31);
+  --grad-card-hover-bg: linear-gradient(135deg, #042921, #d4af37, #00a86b, #042921);
+  --grad-playbar-bg: linear-gradient(to right, #011411, #042921, #011411);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(212, 175, 55, 0.25);
+  --shadow-glow-medium: rgba(0, 168, 107, 0.35);
+  --shadow-glow-strong: rgba(212, 175, 55, 0.5);
+  --shadow-glow-primary: rgba(0, 168, 107, 0.45);
+  --shadow-card-glow: rgba(80, 200, 120, 0.35);
+  --shadow-card-dark: rgba(0, 0, 0, 0.6);
+  --shadow-song-hover: rgba(212, 175, 55, 0.2);
+  --shadow-playbar: rgba(0, 168, 107, 0.3);
+  --shadow-icon-hover: rgba(212, 175, 55, 0.5);
+  --text-glow-1: #50c878;
+  --text-glow-2: #d4af37;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

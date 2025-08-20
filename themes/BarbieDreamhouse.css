@@ -1,0 +1,57 @@
+:root {
+  /* 🎨 Theme: Barbie Dreamhouse */
+
+  /* Primary Text & Icons */
+  --text-primary: #3a3a3a; /* Dark gray for readability */
+  --text-secondary: #6e6e6e;
+  --text-on-accent: #ffffff;
+  --text-on-accent-dark: #ffffff;
+  --icon-color: #5e5e5e;
+
+  /* Backgrounds */
+  --bg-dark: #fff7fa; /* Very light pink */
+  --bg-off-dark: #fdeef4;
+  --bg-item: #ffffff;
+  --bg-item-hover: #fdeef4;
+  --bg-search: #fdeef4;
+  --bg-input-focus: rgba(224, 33, 138, 0.1);
+  --bg-navbar: #ffffff;
+
+  /* Primary Accent (Iconic Pinks & Aqua) */
+  --accent-primary: #e0218a; /* Iconic Hot Pink */
+  --accent-primary-hover: #f02898;
+  --accent-secondary: #00c9b8; /* Malibu Aqua for contrast */
+  --accent-light: #ff8dcb;
+  --accent-button: #e0218a;
+  --accent-button-hover: #f02898;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #ffffff, #fff7fa, #ffffff);
+  --grad-card-hover-bg: linear-gradient(135deg, #ffffff, #fdeef4, #ffffff);
+  --grad-playbar-bg: linear-gradient(to right, #f857a6, #ff5858);
+  --grad-slider-bg: linear-gradient(
+    to right,
+    var(--accent-primary),
+    var(--accent-light)
+  );
+
+  /* Shadows & Glows (The Glamour!) */
+  --shadow-glow-light: rgba(224, 33, 138, 0.15);
+  --shadow-glow-medium: rgba(224, 33, 138, 0.2);
+  --shadow-glow-strong: rgba(224, 33, 138, 0.3);
+  --shadow-glow-primary: rgba(224, 33, 138, 0.45);
+  --shadow-card-glow: rgba(224, 33, 138, 0.2);
+  --shadow-card-dark: rgba(248, 87, 166, 0.1);
+  --shadow-song-hover: rgba(253, 238, 244, 0.9);
+  --shadow-playbar: rgba(224, 33, 138, 0.2);
+  --shadow-icon-hover: rgba(224, 33, 138, 0.4);
+  --text-glow-1: #e0218a;
+  --text-glow-2: #ff8dcb;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

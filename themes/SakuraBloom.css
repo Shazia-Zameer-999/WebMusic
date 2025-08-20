@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Sakura Bloom */
+
+  /* Primary Text & Icons */
+  --text-primary: #333333; /* Dark Gray */
+  --text-secondary: #5c5c5c;
+  --text-on-accent: #ffffff;
+  --text-on-accent-dark: #ffffff;
+  --icon-color: #5c5c5c;
+
+  /* Backgrounds */
+  --bg-dark: #fdfdfd; /* Pure White */
+  --bg-off-dark: #f4f4f4; /* Off-White */
+  --bg-item: #ffffff;
+  --bg-item-hover: #fff0f5; /* Lavender Blush */
+  --bg-search: #f4f4f4;
+  --bg-input-focus: rgba(219, 112, 147, 0.05);
+  --bg-navbar: #fdfdfd;
+
+  /* Primary Accent (Pinks & Magentas) */
+  --accent-primary: #db7093; /* Pale Violet Red */
+  --accent-primary-hover: #c76083;
+  --accent-secondary: #ffb6c1; /* Light Pink */
+  --accent-light: #ffc0cb; /* Pink */
+  --accent-button: #db7093;
+  --accent-button-hover: #c76083;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #fdfdfd, #f9f6f7, #fdfdfd);
+  --grad-card-hover-bg: linear-gradient(135deg, #ffffff, #fff0f5, #ffffff);
+  --grad-playbar-bg: linear-gradient(to right, #fdfdfd, #f9f6f7, #fdfdfd);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-secondary), var(--accent-primary));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(219, 112, 147, 0.15);
+  --shadow-glow-medium: rgba(219, 112, 147, 0.2);
+  --shadow-glow-strong: rgba(219, 112, 147, 0.25);
+  --shadow-glow-primary: rgba(199, 96, 131, 0.35);
+  --shadow-card-glow: rgba(219, 112, 147, 0.15);
+  --shadow-card-dark: rgba(0, 0, 0, 0.05);
+  --shadow-song-hover: rgba(255, 182, 193, 0.3);
+  --shadow-playbar: rgba(219, 112, 147, 0.2);
+  --shadow-icon-hover: rgba(255, 182, 193, 0.5);
+  --text-glow-1: #db7093;
+  --text-glow-2: #ffb6c1;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

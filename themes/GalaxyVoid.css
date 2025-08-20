@@ -1,0 +1,63 @@
+:root {
+  /* 🎨 Theme: Galaxy Void */
+
+  /* Primary Text & Icons */
+  --text-primary: #e5e5e5; /* Silver */
+  --text-secondary: #a0a0a0;
+  --text-on-accent: #000000;
+  --text-on-accent-dark: #000000;
+  --icon-color: #e5e5e5;
+
+  /* Backgrounds */
+  --bg-dark: #000000; /* Pitch Black */
+  --bg-off-dark: #0c0a1a;
+  --bg-item: #1c1833;
+  --bg-item-hover: #302b5c;
+  --bg-search: #0c0a1a;
+  --bg-input-focus: rgba(179, 136, 235, 0.1);
+  --bg-navbar: #000000;
+
+  /* Primary Accent (Purples & Blues) */
+  --accent-primary: #7c3aed; /* Deep Purple */
+  --accent-primary-hover: #6d28d9;
+  --accent-secondary: #3b82f6; /* Bright Blue */
+  --accent-light: #b388eb; /* Lavender */
+  --accent-button: #7c3aed;
+  --accent-button-hover: #6d28d9;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #000000, #0c0a1a, #1c1833);
+  --grad-card-hover-bg: linear-gradient(
+    135deg,
+    #0c0a1a,
+    #7c3aed,
+    #3b82f6,
+    #0c0a1a
+  );
+  --grad-playbar-bg: linear-gradient(to right, #000000, #1c1833, #000000);
+  --grad-slider-bg: linear-gradient(
+    to right,
+    var(--accent-secondary),
+    var(--accent-primary)
+  );
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(179, 136, 235, 0.3);
+  --shadow-glow-medium: rgba(179, 136, 235, 0.4);
+  --shadow-glow-strong: rgba(179, 136, 235, 0.6);
+  --shadow-glow-primary: rgba(124, 58, 237, 0.55);
+  --shadow-card-glow: rgba(59, 130, 246, 0.4);
+  --shadow-card-dark: rgba(0, 0, 0, 0.6);
+  --shadow-song-hover: rgba(59, 130, 246, 0.3);
+  --shadow-playbar: rgba(124, 58, 237, 0.3);
+  --shadow-icon-hover: rgba(59, 130, 246, 0.6);
+  --text-glow-1: #b388eb;
+  --text-glow-2: #7c3aed;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

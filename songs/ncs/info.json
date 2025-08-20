@@ -1,0 +1,35 @@
+{
+    "title":"Romantic Hits",
+    "description":"Explore the magic within",
+    "songs": [
+    {
+      "filename": "holaaaa-Ed Sheeran",
+      "title": "holaaaa",
+      "artist": "Ed Sheeran",
+      "album": "Romantic Hits",
+      "year": "2025"
+    },
+    {
+      "filename": "holaaaa-Ed Sheeran",
+      "title": "holaaaa",
+      "artist": "Ed Sheeran",
+      "album": "Romantic Hits",
+      "year": "2025"
+    },
+    {
+      "filename": "I Love_You-MAAri",
+      "title": "I Love_You",
+      "artist": "MAAri",
+      "album": "Romantic Hits",
+      "year": "2025"
+    },
+    {
+      "filename": "holaaaa-Ed Sheeran",
+      "title": "holaaaa",
+      "artist": "Ed Sheeran",
+      "album": "Romantic Hits",
+      "year": "2025"
+    }
+    
+  ]
+}

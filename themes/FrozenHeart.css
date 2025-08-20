@@ -1,0 +1,62 @@
+:root {
+  /* 🎨 Theme: Frozen Heart */
+
+  /* Primary Text & Icons */
+  --text-primary: #0b2c5f; /* Deep, dark blue */
+  --text-secondary: #4a6b9c;
+  --text-on-accent: #ffffff;
+  --text-on-accent-dark: #ffffff;
+  --icon-color: #0b2c5f;
+
+  /* Backgrounds */
+  --bg-dark: #f0f8ff; /* Alice Blue (like fresh snow) */
+  --bg-off-dark: #e6f2ff;
+  --bg-item: #ffffff;
+  --bg-item-hover: #e0f7fa; /* Light cyan like glistening ice */
+  --bg-search: #e6f2ff;
+  --bg-input-focus: rgba(137, 210, 255, 0.15);
+  --bg-navbar: #ffffff;
+
+  /* Primary Accent (Icy Blues & Royal Purple) */
+  --accent-primary: #89d2ff; /* Crystalline Icy Blue */
+  --accent-primary-hover: #aee2ff;
+  --accent-secondary: #6a5acd; /* Royal Purple Accent */
+  --accent-light: #cceeff; /* Shimmering Light Blue */
+  --accent-button: #89d2ff;
+  --accent-button-hover: #aee2ff;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #ffffff, #f0f8ff, #ffffff);
+  --grad-card-hover-bg: linear-gradient(135deg, #ffffff, #e0f7fa, #ffffff);
+  --grad-playbar-bg: linear-gradient(
+    to right,
+    #483d8b,
+    /* Deep Slate Blue */ #6a5acd,
+    /* Slate Blue */ #89d2ff /* Icy Blue */
+  );
+  --grad-slider-bg: linear-gradient(
+    to right,
+    var(--accent-primary),
+    var(--accent-light)
+  );
+
+  /* Shadows & Glows (Magical Ice Effect) */
+  --shadow-glow-light: rgba(137, 210, 255, 0.2);
+  --shadow-glow-medium: rgba(137, 210, 255, 0.3);
+  --shadow-glow-strong: rgba(137, 210, 255, 0.4);
+  --shadow-glow-primary: rgba(137, 210, 255, 0.5);
+  --shadow-card-glow: rgba(137, 210, 255, 0.25);
+  --shadow-card-dark: rgba(72, 61, 139, 0.1);
+  --shadow-song-hover: rgba(224, 247, 250, 0.9);
+  --shadow-playbar: rgba(137, 210, 255, 0.25);
+  --shadow-icon-hover: rgba(137, 210, 255, 0.5);
+  --text-glow-1: #89d2ff;
+  --text-glow-2: #cceeff;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

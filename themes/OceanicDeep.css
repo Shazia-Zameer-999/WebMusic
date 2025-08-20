@@ -1,0 +1,61 @@
+:root {
+  /* 🎨 Theme: Oceanic Deep */
+
+  /* Primary Text & Icons */
+  --text-primary: #e8f1f2;
+  --text-secondary: #bde0fe;
+  --text-on-accent: #03045e;
+  --text-on-accent-dark: #03045e;
+  --icon-color: #e8f1f2;
+
+  /* Backgrounds */
+  --bg-dark: #023e8a;
+  --bg-off-dark: #0077b6;
+  --bg-item: #0096c7;
+  --bg-item-hover: #48cae4;
+  --bg-search: #0077b6;
+
+  /* --- CHANGE #1: A more noticeable background when typing in the search bar --- */
+  --bg-input-focus: rgba(173, 232, 244, 0.2); /* Was rgba(189, 224, 254, 0.1) */
+
+  /* --- CHANGE #2: Re-using the playbar gradient for a cohesive, non-flat look --- */
+  --bg-navbar: #03045e; /* Was #023e8a */
+
+  /* Primary Accent (Teals & Light Blues) */
+  --accent-primary: #48cae4;
+  --accent-primary-hover: #90e0ef;
+  --accent-secondary: #ade8f4;
+  --accent-light: #caf0f8;
+  --accent-button: #ade8f4;
+  --accent-button-hover: #90e0ef;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #03045e, #0077b6, #00b4d8);
+  --grad-card-hover-bg: linear-gradient(135deg, #0077b6, #90e0ef, #0077b6);
+  --grad-playbar-bg: linear-gradient(to right, #03045e, #0077b6, #03045e);
+  --grad-slider-bg: linear-gradient(
+    to right,
+    var(--accent-primary),
+    var(--accent-light)
+  );
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(144, 224, 239, 0.3);
+  --shadow-glow-medium: rgba(144, 224, 239, 0.4);
+  --shadow-glow-strong: rgba(144, 224, 239, 0.6);
+  --shadow-glow-primary: rgba(72, 202, 228, 0.55);
+  --shadow-card-glow: rgba(72, 202, 228, 0.4);
+  --shadow-card-dark: rgba(3, 4, 94, 0.6);
+  --shadow-song-hover: rgba(173, 232, 244, 0.3);
+  --shadow-playbar: rgba(72, 202, 228, 0.3);
+  --shadow-icon-hover: rgba(173, 232, 244, 0.6);
+  --text-glow-1: #90e0ef;
+  --text-glow-2: #caf0f8;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

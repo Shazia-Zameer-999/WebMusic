@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Vintage Paper */
+
+  /* Primary Text & Icons */
+  --text-primary: #3d2b1f; /* Bistre (dark brown) */
+  --text-secondary: #5a4b3c;
+  --text-on-accent: #f5f5dc; /* Beige */
+  --text-on-accent-dark: #3d2b1f;
+  --icon-color: #3d2b1f;
+
+  /* Backgrounds */
+  --bg-dark: #f5f5dc; /* Beige */
+  --bg-off-dark: #eaddc0;
+  --bg-item: #dcd0b1;
+  --bg-item-hover: #c9b79c;
+  --bg-search: #eaddc0;
+  --bg-input-focus: rgba(61, 43, 31, 0.05);
+  --bg-navbar: #f5f5dc;
+
+  /* Primary Accent (Browns & Muted Oranges) */
+  --accent-primary: #8a5a44; /* Muted brown */
+  --accent-primary-hover: #7a4a34;
+  --accent-secondary: #c78255; /* Muted orange */
+  --accent-light: #a67b5b;
+  --accent-button: #8a5a44;
+  --accent-button-hover: #7a4a34;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #f5f5dc, #eaddc0, #dcd0b1);
+  --grad-card-hover-bg: linear-gradient(135deg, #eaddc0, #f5f5dc, #eaddc0);
+  --grad-playbar-bg: linear-gradient(to right, #f5f5dc, #eaddc0, #f5f5dc);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(138, 90, 68, 0.2);
+  --shadow-glow-medium: rgba(138, 90, 68, 0.3);
+  --shadow-glow-strong: rgba(138, 90, 68, 0.4);
+  --shadow-glow-primary: rgba(122, 74, 52, 0.45);
+  --shadow-card-glow: rgba(122, 74, 52, 0.3);
+  --shadow-card-dark: rgba(61, 43, 31, 0.15);
+  --shadow-song-hover: rgba(199, 130, 85, 0.2);
+  --shadow-playbar: rgba(122, 74, 52, 0.25);
+  --shadow-icon-hover: rgba(199, 130, 85, 0.4);
+  --text-glow-1: #8a5a44;
+  --text-glow-2: #a67b5b;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

@@ -1,0 +1,59 @@
+:root {
+  /* 🎨 Theme: Arctic Ice */
+
+  /* Primary Text & Icons */
+  --text-primary: #2f4f4f; /* Dark Slate Gray */
+  --text-secondary: #5f7f7f;
+  --text-on-accent: #ffffff;
+  --text-on-accent-dark: #003366; /* Deep Navy for contrast */
+  --icon-color: #daefef;
+
+  /* Backgrounds */
+  --bg-dark: #f0ffff; /* Azure */
+  --bg-off-dark: #e0eeee;
+  --bg-item: #ffffff;
+  --bg-item-hover: #e0f7fa;
+  --bg-search: #e0eeee;
+  --bg-input-focus: rgba(0, 191, 255, 0.1);
+  --bg-navbar: #ffffff;
+
+  /* Primary Accent (Crystalline Blues & Cyans) */
+  --accent-primary: #00bfff; /* Deep Sky Blue */
+  --accent-primary-hover: #38caff;
+  --accent-secondary: #87ceeb; /* Sky Blue */
+  --accent-light: #afeeee; /* Pale Turquoise */
+  --accent-button: #00bfff;
+  --accent-button-hover: #38caff;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #ffffff, #f0ffff, #ffffff);
+  --grad-card-hover-bg: linear-gradient(135deg, #ffffff, #e0f7fa, #ffffff);
+  --grad-playbar-bg: linear-gradient(
+    to right,
+    #7072e3,
+    #38acf4,
+    /* Dark Ocean Blue */ /* Indigo */ #00bfff /* Bright Sky Blue */
+  );
+  --grad-slider-bg: linear-gradient(
+    to right,
+    var(--accent-primary),
+    var(--accent-light)
+  );
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(0, 191, 255, 0.15);
+  --shadow-glow-medium: rgba(0, 191, 255, 0.25);
+  --shadow-glow-strong: rgba(0, 191, 255, 0.35);
+  --shadow-glow-primary: rgba(0, 191, 255, 0.45);
+  --shadow-card-glow: rgba(0, 191, 255, 0.2);
+  --shadow-card-dark: rgba(0, 82, 117, 0.1);
+  --shadow-song-hover: rgba(224, 247, 250, 0.9);
+  --shadow-playbar: rgba(0, 191, 255, 0.2);
+  --shadow-icon-hover: rgba(0, 191, 255, 0.5);
+  --text-glow-1: #00bfff;
+  --text-glow-2: #afeeee;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+}

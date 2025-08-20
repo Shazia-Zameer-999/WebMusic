@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Cyberpunk Sunset */
+
+  /* Primary Text & Icons */
+  --text-primary: #f5f5f5;
+  --text-secondary: #b0b0b0;
+  --text-on-accent: #0a0a0a;
+  --text-on-accent-dark: #000000;
+  --icon-color: #f5f5f5;
+
+  /* Backgrounds */
+  --bg-dark: #0d0c1d; /* Deep indigo */
+  --bg-off-dark: #1a1a2e;
+  --bg-item: #16213e;
+  --bg-item-hover: #0f3460;
+  --bg-search: rgb(22, 33, 62);
+  --bg-input-focus: rgba(224, 82, 226, 0.1);
+  --bg-navbar: #0d0c1d;
+
+  /* Primary Accent (Pinks & Cyans) */
+  --accent-primary: #e052e2; /* Bright Pink */
+  --accent-primary-hover: #c832c9;
+  --accent-secondary: #00f5d4; /* Bright Cyan */
+  --accent-light: #ff7ab8;
+  --accent-button: #e052e2;
+  --accent-button-hover: #c832c9;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #0d0c1d, #1a1a2e, #16213e, #0f3460);
+  --grad-card-hover-bg: linear-gradient(135deg, #1a1a2e, #e052e2, #00f5d4, #1a1a2e);
+  --grad-playbar-bg: linear-gradient(to right, #0d0c1d, #16213e, #0d0c1d);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-secondary), var(--accent-primary));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(224, 82, 226, 0.3);
+  --shadow-glow-medium: rgba(224, 82, 226, 0.4);
+  --shadow-glow-strong: rgba(224, 82, 226, 0.6);
+  --shadow-glow-primary: rgba(224, 82, 226, 0.55);
+  --shadow-card-glow: rgba(0, 245, 212, 0.4);
+  --shadow-card-dark: rgba(0, 0, 0, 0.6);
+  --shadow-song-hover: rgba(0, 245, 212, 0.3);
+  --shadow-playbar: rgba(224, 82, 226, 0.3);
+  --shadow-icon-hover: rgba(0, 245, 212, 0.6);
+  --text-glow-1: #e052e2;
+  --text-glow-2: #00f5d4;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

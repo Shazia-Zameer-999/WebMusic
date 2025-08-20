@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0000; }
+        ::-webkit-scrollbar-thumb { background: #535353; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b3b3b3; }
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; overflow: hidden; }
+
+        /* --- Transitions & Animations --- */
+        #sidebar, #sidebar-overlay, #main-view-background, #main-header, .modal-content, .modal-overlay { transition: all 0.3s ease-in-out; }
+        .song-item, .playlist-link, .song-card { transition: background-color 0.2s ease-in-out; }
+        button { transition: transform 0.1s ease-in-out, background-color 0.2s ease-in-out; }
+        button:active { transform: scale(0.95); }
+
+        /* --- Glassmorphism --- */
+        .glass-pane {
+            background-color: rgba(24, 24, 24, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* --- Progress Bars --- */
+        .progress-bar-container input[type="range"] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
+        .progress-bar-container input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: #4d4d4d; border-radius: 2px; }
+        .progress-bar-container input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; background: #fff; border-radius: 50%; margin-top: -4px; opacity: 0; transition: opacity 0.2s ease-in-out; }
+        .progress-bar-container:hover input[type="range"]::-webkit-slider-thumb, .progress-bar-container input[type="range"]:focus::-webkit-slider-thumb { opacity: 1; }
+        .progress-bar-fill { background-color: #fff; height: 4px; border-radius: 2px; position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; transition: background-color 0.2s; }
+        .progress-bar-container:hover .progress-bar-fill { background-color: #1db954; }
+
+        /* --- States & Indicators --- */
+        .playing-indicator, .active-song .song-title { color: #1db954; }
+        #spotlight {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 60%);
+            transition: transform 0.1s ease-out;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <div id="app-container" class="h-screen flex flex-col">
+        <div class="flex flex-1 overflow-hidden relative">
+            <div id="main-view-background" class="absolute inset-0 z-0"></div>
+            <div id="spotlight"></div>
+            
+            <!-- Sidebar -->
+            <aside id="sidebar" class="absolute md:relative top-0 left-0 w-64 bg-black/80 md:bg-black p-2 h-full flex-shrink-0 flex flex-col z-40 transform -translate-x-full md:translate-x-0 md:glass-pane border-r border-white/10">
+                <div class="bg-transparent rounded-lg p-2">
+                    <nav class="space-y-4 p-2">
+                        <a href="#" id="home-btn" class="flex items-center gap-4 text-white font-bold"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Home</span></a>
+                        <a href="#" id="search-btn" class="flex items-center gap-4 text-zinc-300 hover:text-white font-bold"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Search</span></a>
+                    </nav>
+                </div>
+                <div class="bg-transparent rounded-lg mt-2 flex-1 flex flex-col overflow-hidden">
+                    <div class="p-4 flex items-center justify-between">
+                        <a href="#" class="flex items-center gap-2 text-zinc-300 hover:text-white font-bold"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v14"/></svg><span>Your Library</span></a>
+                    </div>
+                    <div id="playlist-container" class="px-2 pb-4 overflow-y-auto flex-1"></div>
+                </div>
+            </aside>
+            <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
+            <!-- Main Content -->
+            <main id="main-view" class="flex-1 overflow-y-auto pb-24 md:pb-0 z-10">
+                <header id="main-header" class="sticky top-0 p-4 flex items-center justify-between z-20 transition-colors duration-300 glass-pane">
+                    <div class="flex items-center gap-2">
+                        <button id="hamburger-btn" class="p-1 rounded-full text-zinc-300 hover:text-white md:hidden"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button id="explore-premium-btn" class="bg-white text-black font-bold text-sm px-4 py-2 rounded-full hover:scale-105">Explore Premium</button>
+                        <button id="install-app-btn" class="bg-black/70 text-white font-bold text-sm px-4 py-2 rounded-full hover:scale-105 flex items-center gap-2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Install App</button>
+                    </div>
+                </header>
+                <div id="main-content" class="p-4 md:p-6"></div>
+            </main>
+        </div>
+
+        <!-- Player Bar -->
+        <footer class="bg-[#181818] border-t border-zinc-800 p-2 md:p-4 flex items-center justify-between z-50">
+            <div class="flex items-center gap-3 w-1/3">
+                <img id="current-song-img" src="https://placehold.co/56x56/121212/121212" alt="Album Art" class="w-14 h-14 rounded-md">
+                <div class="hidden md:block">
+                    <p id="current-song-title" class="font-semibold text-sm">...</p>
+                    <p id="current-song-artist" class="text-xs text-zinc-400">...</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center gap-2 w-1/3 md:w-2/5">
+                <div class="flex items-center gap-4">
+                    <button id="prev-btn" class="text-zinc-400 hover:text-white"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m17 18-6-6 6-6"/><path d="M7 6v12"/></svg></button>
+                    <button id="play-pause-btn" class="bg-white text-black rounded-full p-2 hover:scale-105"><svg id="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><svg id="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="hidden"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg></button>
+                    <button id="next-btn" class="text-zinc-400 hover:text-white"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m7 18 6-6-6-6"/><path d="M17 6v12"/></svg></button>
+                </div>
+                <div class="hidden md:flex items-center gap-2 w-full progress-bar-container">
+                    <span id="current-time" class="text-xs text-zinc-400">0:00</span>
+                    <div class="w-full h-1 bg-zinc-600 rounded-full relative"><div id="progress-bar-fill" class="progress-bar-fill"></div><input type="range" id="progress-bar" value="0" class="w-full h-1 appearance-none bg-transparent absolute top-0 left-0"></div>
+                    <span id="duration" class="text-xs text-zinc-400">0:00</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 w-1/3 justify-end">
+                <div class="hidden md:flex items-center gap-2">
+                    <button id="volume-icon-btn" class="text-zinc-400 hover:text-white"></button>
+                    <div class="w-24 progress-bar-container"><input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1"></div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div id="modal-container"></div>
+    <canvas id="color-thief-canvas" class="hidden"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const API = {
+                getSongs: () => [
+                    { id: 0, title: "Lost in the City Lights", artist: "Cosmo Sheldrake", duration: 212, img: "https://placehold.co/300x300/38bdf8/white?text=City&font=inter", src: "https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3" },
+                    { id: 1, title: "Forest Lullaby", artist: "Lesfm", duration: 134, img: "https://placehold.co/300x300/818cf8/white?text=Forest&font=inter", src: "https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3" },
+                    { id: 2, title: "Oceanic Drift", artist: "NCS", duration: 195, img: "https://placehold.co/300x300/f472b6/white?text=Ocean&font=inter", src: "https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3" },
+                    { id: 3, title: "Midnight Stroll", artist: "Ghostrifter", duration: 245, img: "https://placehold.co/300x300/f87171/white?text=Stroll&font=inter", src: "https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3" },
+                    { id: 4, title: "Sunrise Overdrive", artist: "Ayleen", duration: 188, img: "https://placehold.co/300x300/60a5fa/white?text=Sunrise&font=inter", src: "https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3" },
+                ],
+                getPlaylists: () => [
+                    { id: 0, name: "Lofi Beats", owner: "Spotify", songs: [0, 1], img: "https://placehold.co/48x48/7e22ce/white?text=Lofi&font=inter" },
+                    { id: 1, name: "Chill Mix", owner: "Spotify", songs: [2, 3], img: "https://placehold.co/48x48/1d4ed8/white?text=Chill&font=inter" },
+                    { id: 2, name: "Rock Classics", owner: "User", songs: [4, 0, 2], img: "https://placehold.co/48x48/be123c/white?text=Rock&font=inter" },
+                ]
+            };
+
+            const Player = {
+                audio: new Audio(), currentSong: null, currentQueue: [], currentSongIndexInQueue: 0, isPlaying: false,
+                init() { this.audio.addEventListener('timeupdate', UI.updateProgress); this.audio.addEventListener('ended', () => this.next()); this.audio.addEventListener('loadeddata', () => { UI.updateDuration(); this.play(); }); },
+                loadQueue(songIds, startIndex = 0) { this.currentQueue = songIds; this.currentSongIndexInQueue = startIndex; const song = API.getSongs().find(s => s.id === this.currentQueue[this.currentSongIndexInQueue]); this.loadSong(song); },
+                loadSong(song) { if (!song) return; this.currentSong = song; this.audio.src = song.src; UI.updateCurrentSongInfo(song); UI.updateActiveSongIndicator(); UI.updateDynamicBackgroundColor(song.img); },
+                play() { this.isPlaying = true; this.audio.play().catch(e => console.error("Playback error:", e)); UI.setPlayIcon(false); },
+                pause() { this.isPlaying = false; this.audio.pause(); UI.setPlayIcon(true); },
+                togglePlayPause() { if (this.isPlaying) this.pause(); else if (this.currentSong) this.play(); },
+                next() { if (this.currentQueue.length > 0) { this.currentSongIndexInQueue = (this.currentSongIndexInQueue + 1) % this.currentQueue.length; const nextSongId = this.currentQueue[this.currentSongIndexInQueue]; this.loadSong(API.getSongs().find(s => s.id === nextSongId)); } },
+                prev() { if (this.currentQueue.length > 0) { this.currentSongIndexInQueue = (this.currentSongIndexInQueue - 1 + this.currentQueue.length) % this.currentQueue.length; const prevSongId = this.currentQueue[this.currentSongIndexInQueue]; this.loadSong(API.getSongs().find(s => s.id === prevSongId)); } },
+                seek(value) { this.audio.currentTime = value; },
+                setVolume(value) { this.audio.volume = value; }
+            };
+
+            const UI = {
+                elements: { mainView: document.getElementById('main-view'), mainHeader: document.getElementById('main-header'), mainContent: document.getElementById('main-content'), mainViewBackground: document.getElementById('main-view-background'), sidebar: document.getElementById('sidebar'), sidebarOverlay: document.getElementById('sidebar-overlay'), playlistContainer: document.getElementById('playlist-container'), currentSongImg: document.getElementById('current-song-img'), currentSongTitle: document.getElementById('current-song-title'), currentSongArtist: document.getElementById('current-song-artist'), playIcon: document.getElementById('play-icon'), pauseIcon: document.getElementById('pause-icon'), progressBar: document.getElementById('progress-bar'), progressBarFill: document.getElementById('progress-bar-fill'), currentTime: document.getElementById('current-time'), duration: document.getElementById('duration'), volumeIconBtn: document.getElementById('volume-icon-btn'), volumeSlider: document.getElementById('volume-slider'), colorCanvas: document.getElementById('color-thief-canvas'), spotlight: document.getElementById('spotlight'), modalContainer: document.getElementById('modal-container')},
+                init() { this.renderPlaylists(API.getPlaylists()); this.renderHomeView(); this.updateVolumeIcon(1); this.elements.mainView.addEventListener('scroll', this.handleScroll); this.elements.mainView.addEventListener('mousemove', this.updateSpotlight); },
+                handleScroll() { const scrollTop = UI.elements.mainView.scrollTop; if (scrollTop > 10) { UI.elements.mainHeader.style.backgroundColor = 'rgba(0,0,0,0.7)'; } else { UI.elements.mainHeader.style.backgroundColor = 'transparent'; } },
+                updateSpotlight(e) { const rect = UI.elements.mainView.getBoundingClientRect(); const x = e.clientX - rect.left; const y = e.clientY - rect.top; UI.elements.spotlight.style.transform = `translate(${x - 200}px, ${y - 200}px)`; },
+                toggleSidebar() { this.elements.sidebar.classList.toggle('-translate-x-full'); this.elements.sidebarOverlay.classList.toggle('hidden'); },
+                renderHomeView() { const songs = API.getSongs(); const playlists = API.getPlaylists(); this.elements.mainContent.innerHTML = `<h1 class="text-3xl font-black mb-6">Good Afternoon</h1><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">${playlists.map(p => this.createPlaylistCard(p)).join('')}</div><h2 class="text-2xl font-black mt-10 mb-6">Made For You</h2><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">${songs.map(song => this.createSongCard(song)).join('')}</div>`; App.bindContentEvents(); },
+                renderPlaylistView(playlist) { this.elements.mainContent.innerHTML = `<div class="flex flex-col md:flex-row items-center md:items-end gap-6 mb-8 pt-16"><img src="${playlist.img.replace('48x48', '200x200')}" class="w-48 h-48 rounded-lg shadow-2xl" alt="${playlist.name}"><div data-playlist-id="${playlist.id}"><p class="text-sm font-bold">PLAYLIST</p><h1 class="text-5xl md:text-7xl font-black">${playlist.name}</h1></div></div><div class="p-2 md:p-0">${playlist.songs.map((songId, index) => this.createSongListItem(API.getSongs().find(s => s.id === songId), index)).join('')}</div>`; App.bindContentEvents(); },
+                renderSearchView() { this.elements.mainContent.innerHTML = `<div class="pt-16"><h1 class="text-5xl font-black mb-8">Search</h1><input type="text" id="search-input" placeholder="What do you want to listen to?" class="w-full bg-white/10 p-4 rounded-lg text-2xl font-bold focus:outline-none focus:ring-2 focus:ring-green-500"></div><div id="search-results" class="mt-8"></div>`; document.getElementById('search-input').addEventListener('input', (e) => this.renderSearchResults(e.target.value)); },
+                renderSearchResults(query) { const resultsContainer = document.getElementById('search-results'); if (!query) { resultsContainer.innerHTML = ''; return; } const songs = API.getSongs().filter(s => s.title.toLowerCase().includes(query.toLowerCase()) || s.artist.toLowerCase().includes(query.toLowerCase())); const playlists = API.getPlaylists().filter(p => p.name.toLowerCase().includes(query.toLowerCase())); resultsContainer.innerHTML = `${songs.length > 0 ? `<h2 class="text-2xl font-bold mb-4">Songs</h2>${songs.map(s => this.createSongListItem(s, 0)).join('')}` : ''}${playlists.length > 0 ? `<h2 class="text-2xl font-bold mt-8 mb-4">Playlists</h2><div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">${playlists.map(p => this.createPlaylistCard(p, true)).join('')}</div>` : ''}`; App.bindContentEvents(); },
+                renderPlaylists(playlists) { this.elements.playlistContainer.innerHTML = playlists.map(p => `<a href="#" data-playlist-id="${p.id}" class="playlist-link flex items-center gap-3 p-2 rounded-md hover:bg-[#282828]"><img src="${p.img}" alt="${p.name}" class="w-12 h-12 rounded-md"><div class="overflow-hidden"><p class="font-semibold text-white truncate">${p.name}</p><p class="text-xs text-zinc-400 truncate">Playlist • ${p.owner}</p></div></a>`).join(''); App.bindSidebarEvents(); },
+                createPlaylistCard: (p, isSearch) => `<a href="#" data-playlist-id="${p.id}" class="playlist-link ${isSearch ? 'bg-[#181818] p-4 rounded-lg' : 'bg-white/5 flex items-center gap-4'} hover:bg-white/20 transition-all group"><img src="${p.img.replace('48x48', isSearch ? '200x200' : '80x80')}" alt="${p.name}" class="${isSearch ? 'w-full h-auto rounded-md mb-4' : 'w-14 h-14 md:w-20 md:h-20 rounded-l-md'} object-cover"><div class="${isSearch ? '' : 'flex-1'}"><p class="font-bold text-base truncate">${p.name}</p>${isSearch ? `<p class="text-sm text-zinc-400 truncate">Playlist</p>` : ''}</div></a>`,
+                createSongCard: song => `<div data-song-id="${song.id}" data-context="home" class="song-item bg-[#181818] p-4 rounded-lg hover:bg-[#282828] group cursor-pointer"><div class="relative"><img src="${song.img}" alt="${song.title}" class="w-full h-auto rounded-md mb-4"><button class="play-song-btn absolute bottom-2 right-2 bg-green-500 text-black rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-y-0 translate-y-2 shadow-lg hover:scale-105"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></button></div><h3 class="font-bold text-base truncate">${song.title}</h3><p class="text-sm text-zinc-400 truncate">${song.artist}</p></div>`,
+                createSongListItem(song, index) { const isActive = Player.currentSong?.id === song.id; return `<div data-song-id="${song.id}" data-context="playlist" data-index="${index}" class="song-item grid grid-cols-[auto,1fr,auto] items-center gap-4 p-2 rounded-md hover:bg-white/10 cursor-pointer ${isActive ? 'active-song' : ''}"><div class="text-zinc-400 w-6 text-center">${isActive && Player.isPlaying ? `<svg width="16" height="16" viewBox="0 0 10 16" fill="currentColor" class="playing-indicator inline-block"><path d="M0 0h2v16H0zM4 4h2v12H4zM8 8h2v8H8z" /></svg>` : index + 1}</div><div class="flex items-center gap-4"><img src="${song.img.replace('300x300', '40x40')}" class="w-10 h-10 rounded" alt="${song.title}"><div><p class="font-semibold text-white song-title">${song.title}</p><p class="text-sm text-zinc-400">${song.artist}</p></div></div><div class="text-zinc-400">${this.formatTime(song.duration)}</div></div>`; },
+                updateCurrentSongInfo(song) { this.elements.currentSongImg.src = song.img.replace('300x300', '56x56'); this.elements.currentSongTitle.textContent = song.title; this.elements.currentSongArtist.textContent = song.artist; },
+                setPlayIcon(isPaused) { this.elements.playIcon.classList.toggle('hidden', !isPaused); this.elements.pauseIcon.classList.toggle('hidden', isPaused); },
+                updateProgress() { const { currentTime, duration } = Player.audio; if (isNaN(duration)) return; const progressPercent = (currentTime / duration) * 100; UI.elements.progressBar.value = currentTime; UI.elements.progressBarFill.style.width = `${progressPercent}%`; UI.elements.currentTime.textContent = UI.formatTime(currentTime); },
+                updateDuration() { const { duration } = Player.audio; if (isNaN(duration)) return; UI.elements.progressBar.max = duration; UI.elements.duration.textContent = UI.formatTime(duration); },
+                updateVolumeIcon(volume) { let icon; if (volume == 0) icon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9 2 9v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`; else if (volume < 0.5) icon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>`; else icon = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`; this.elements.volumeIconBtn.innerHTML = icon; },
+                updateActiveSongIndicator() { document.querySelectorAll('.song-item').forEach(item => { const songId = parseInt(item.dataset.songId); item.classList.toggle('active-song', songId === Player.currentSong?.id); }); if (document.querySelector('[data-context="playlist"]')) { const playlistId = Player.currentQueue.playlistId; if (playlistId !== undefined) { this.renderPlaylistView(API.getPlaylists().find(p => p.id === playlistId)); } } },
+                updateDynamicBackgroundColor(imgUrl) { const img = new Image(); img.crossOrigin = "Anonymous"; img.src = imgUrl; img.onload = () => { const ctx = this.elements.colorCanvas.getContext('2d'); ctx.drawImage(img, 0, 0, 1, 1); const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data; this.elements.mainViewBackground.style.background = `linear-gradient(to bottom, rgb(${r}, ${g}, ${b}, 0.5), #121212 400px)`; }; img.onerror = () => { this.elements.mainViewBackground.style.background = `linear-gradient(to bottom, #333, #121212 400px)`; } },
+                formatTime: (s) => `${Math.floor(s/60)}:${Math.floor(s%60).toString().padStart(2,'0')}`
+            };
+            
+            const Modal = {
+                show(content) {
+                    const modalHTML = `<div class="modal-overlay fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 opacity-0"><div class="modal-content glass-pane p-8 rounded-2xl shadow-2xl max-w-md w-full transform scale-95">${content}<button class="modal-close absolute top-4 right-4 text-zinc-400 hover:text-white">&times;</button></div></div>`;
+                    UI.elements.modalContainer.innerHTML = modalHTML;
+                    setTimeout(() => {
+                        const overlay = UI.elements.modalContainer.querySelector('.modal-overlay');
+                        const contentEl = UI.elements.modalContainer.querySelector('.modal-content');
+                        overlay.classList.remove('opacity-0');
+                        contentEl.classList.remove('scale-95');
+                    }, 10);
+                    UI.elements.modalContainer.querySelector('.modal-close').addEventListener('click', this.hide);
+                    UI.elements.modalContainer.querySelector('.modal-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) this.hide(); });
+                },
+                hide() {
+                    const overlay = UI.elements.modalContainer.querySelector('.modal-overlay');
+                    const contentEl = UI.elements.modalContainer.querySelector('.modal-content');
+                    if(overlay) overlay.classList.add('opacity-0');
+                    if(contentEl) contentEl.classList.add('scale-95');
+                    setTimeout(() => { UI.elements.modalContainer.innerHTML = ''; }, 300);
+                },
+                showPremium() { this.show(`<h2 class="text-3xl font-black mb-4">Get Premium</h2><p class="text-zinc-300 mb-6">Enjoy ad-free music, offline listening, and more.</p><button class="w-full bg-white text-black font-bold py-3 px-6 rounded-full hover:scale-105">GET PREMIUM</button>`); },
+                showInstall() { this.show(`<h2 class="text-3xl font-black mb-4">Install Spotify</h2><p class="text-zinc-300 mb-6">Get the full desktop experience.</p><div class="w-full bg-zinc-700 rounded-full h-2.5 mb-4"><div class="bg-green-500 h-2.5 rounded-full animate-pulse" style="width: 75%"></div></div><button class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:scale-105">LAUNCHING...</button>`); }
+            };
+
+            const App = {
+                init() { UI.init(); Player.init(); this.bindGlobalEvents(); },
+                bindGlobalEvents() {
+                    document.getElementById('hamburger-btn').addEventListener('click', () => UI.toggleSidebar());
+                    document.getElementById('sidebar-overlay').addEventListener('click', () => UI.toggleSidebar());
+                    document.getElementById('home-btn').addEventListener('click', (e) => { e.preventDefault(); UI.renderHomeView(); });
+                    document.getElementById('search-btn').addEventListener('click', (e) => { e.preventDefault(); UI.renderSearchView(); });
+                    document.getElementById('explore-premium-btn').addEventListener('click', () => Modal.showPremium());
+                    document.getElementById('install-app-btn').addEventListener('click', () => Modal.showInstall());
+                    document.getElementById('play-pause-btn').addEventListener('click', () => Player.togglePlayPause());
+                    document.getElementById('next-btn').addEventListener('click', () => Player.next());
+                    document.getElementById('prev-btn').addEventListener('click', () => Player.prev());
+                    document.getElementById('progress-bar').addEventListener('input', (e) => Player.seek(e.target.value));
+                    document.getElementById('volume-slider').addEventListener('input', (e) => { Player.setVolume(e.target.value); UI.updateVolumeIcon(e.target.value); });
+                },
+                bindSidebarEvents() { document.querySelectorAll('.playlist-link').forEach(link => { link.addEventListener('click', e => { e.preventDefault(); const playlistId = parseInt(link.dataset.playlistId); const playlist = API.getPlaylists().find(p => p.id === playlistId); if (playlist) { UI.renderPlaylistView(playlist); if (window.innerWidth < 768) UI.toggleSidebar(); } }); }); },
+                bindContentEvents() {
+                    document.querySelectorAll('.song-item').forEach(item => { item.addEventListener('click', () => { const songId = parseInt(item.dataset.songId); const context = item.dataset.context; if (context === 'playlist') { const playlistEl = item.closest('[data-context="playlist"]').parentElement.previousElementSibling.querySelector('[data-playlist-id]'); const playlistId = parseInt(playlistEl.dataset.playlistId); const playlist = API.getPlaylists().find(p => p.id === playlistId); const songIndex = parseInt(item.dataset.index); const queue = [...playlist.songs]; queue.playlistId = playlistId; Player.loadQueue(queue, songIndex); } else { const allSongIds = API.getSongs().map(s => s.id); const songIndex = allSongIds.indexOf(songId); Player.loadQueue(allSongIds, songIndex); } }); });
+                    this.bindSidebarEvents();
+                }
+            };
+
+            App.init();
+        });
+    </script>
+</body>
+</html>

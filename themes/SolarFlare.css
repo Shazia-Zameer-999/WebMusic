@@ -1,0 +1,53 @@
+:root {
+  /* 🎨 Theme: Solar Flare */
+
+  /* Primary Text & Icons */
+  --text-primary: #fdfdfd;
+  --text-secondary: #cccccc;
+  --text-on-accent: #000000;
+  --text-on-accent-dark: #000000;
+  --icon-color: #fdfdfd;
+
+  /* Backgrounds */
+  --bg-dark: #121212; /* Nearly Black */
+  --bg-off-dark: #1e1e1e;
+  --bg-item: #2a2a2a;
+  --bg-item-hover: #3c2a21;
+  --bg-search: rgb(42, 42, 42);
+  --bg-input-focus: rgba(255, 170, 0, 0.1);
+  --bg-navbar: #121212;
+
+  /* Primary Accent (Oranges & Yellows) */
+  --accent-primary: #ff4500; /* OrangeRed */
+  --accent-primary-hover: #e03e00;
+  --accent-secondary: #ffaa00; /* Gold */
+  --accent-light: #ff8c00; /* DarkOrange */
+  --accent-button: #ffaa00;
+  --accent-button-hover: #e69a00;
+
+  /* Gradients */
+  --grad-main-bg: linear-gradient(135deg, #121212, #3c2a21, #4a2511);
+  --grad-card-hover-bg: linear-gradient(135deg, #1e1e1e, #ff4500, #ffaa00, #1e1e1e);
+  --grad-playbar-bg: linear-gradient(to right, #121212, #3c2a21, #121212);
+  --grad-slider-bg: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+
+  /* Shadows & Glows */
+  --shadow-glow-light: rgba(255, 170, 0, 0.3);
+  --shadow-glow-medium: rgba(255, 170, 0, 0.4);
+  --shadow-glow-strong: rgba(255, 170, 0, 0.6);
+  --shadow-glow-primary: rgba(255, 69, 0, 0.55);
+  --shadow-card-glow: rgba(255, 69, 0, 0.4);
+  --shadow-card-dark: rgba(0, 0, 0, 0.6);
+  --shadow-song-hover: rgba(255, 170, 0, 0.3);
+  --shadow-playbar: rgba(255, 69, 0, 0.3);
+  --shadow-icon-hover: rgba(255, 170, 0, 0.6);
+  --text-glow-1: #ff8c00;
+  --text-glow-2: #ff4500;
+
+  /* Scrollbar */
+  --scrollbar-thumb: var(--accent-primary);
+  --scrollbar-track: var(--bg-off-dark);
+
+  /* Utility (for debugging) */
+  --debug-border: red;
+}

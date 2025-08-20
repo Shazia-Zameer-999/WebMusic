@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Music</title>
+    <link rel="icon" href="svg/playBtn.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/modified.css" />
+    <link rel="stylesheet" href="css/responsiveness.css" />
+    <link rel="stylesheet" href="themes/MoltenCore.css" />
+    <link rel="stylesheet" id="theme-link" href="themes/MoltenCore.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- navbar starts here -->
+
+      <div class="navbar">
+        <div class="bar1">
+          <img class="playBtn" src="svg/playBtn.svg" alt="Logo" />
+
+          <div class="nav-links">
+            <ul>
+              <li class="home">Home</li>
+              <li class="themes">Themes</li>
+              <li class="about">About Us</li>
+            </ul>
+          </div>
+
+          <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+        <div class="bar2">
+          <div class="search">
+            <img src="svg/search.svg" alt="" />
+            <input type="text" id="searchInput" placeholder="Search" />
+          </div>
+          <div class="SignInBtn">
+            <button>Sign In</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- navbar ends here -->
+
+      <!-- part1 starts here -->
+
+      <div class="part1">
+        <h1 class="h1">Discover</h1>
+        <h1 class="h2">New Music</h1>
+        <div>
+          <button class="listenNowBtn">Listen Now</button>
+        </div>
+      </div>
+
+      <!-- part1 ends here -->
+
+      <!-- album starts here -->
+      <div class="heading">
+        <h3>Featured Albums</h3>
+      </div>
+
+      <div class="cards">
+        <!-- <div data-folder="ncs" class="card">
+          <img src="covers/cover.png" alt="" />
+          <h4>hoii</h4>
+          <p>Explore The Serenity</p>
+        </div> -->
+      </div>
+
+      <!-- album ends here -->
+
+      <!-- album songs start here -->
+
+      <div class="songs"></div>
+
+      <!-- album songs end here -->
+
+      <!-- playbar starts here -->
+      <div class="playbar">
+        <div class="left">
+          <button class="icon-btn">
+            <!-- <img id="prevBtn" src="svg/prev.svg" alt="" /> -->
+            <svg id="prevBtn" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M6 18V6h2v12H6zm3.5-6l8.5 6V6l-8.5 6z"></path>
+            </svg>
+          </button>
+
+          <button class="icon-btn" id="playPauseBtn">
+            <!-- <img id="playIcon" src="svg/play.svg" alt="" /> -->
+            <svg id="playIcon" viewBox="0 0 24 24" width="28" height="28">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            <svg
+              id="pauseIcon"
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              style="display: none"
+            >
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+            </svg>
+          </button>
+
+          <button class="icon-btn">
+            <!-- <img id="nextBtn" src="svg/next.svg" alt="" /> -->
+            <svg id="nextBtn" viewBox="0 0 24 24" width="24" height="24">
+              <path d="M16 6v12h-2V6h2zm-3.5 6L4 18V6l8.5 6z"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="songN">
+          <div id="songNA">Song Name</div>
+          <div class="center">
+            <span id="currentTime">00:00</span>
+            <input type="range" id="seekBar" value="0" min="0" max="100" />
+            <span id="totalDuration">00:00</span>
+          </div>
+        </div>
+
+        <div class="right">
+          <button class="icon-btn">
+            <!-- Volume SVG -->
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="white" d="M5 9v6h4l5 5V4l-5 5H5z" />
+            </svg>
+          </button>
+          <input type="range" id="volumeBar" min="0" max="100" value="50" />
+        </div>
+      </div>
+
+      <!-- playbar ends here -->
+    </div>
+    <div class="theme-dropdown hidden">
+      <ul></ul>
+    </div>
+
+    <!-- <script src="js/modified.js"></script> -->
+
+    <script src="js/hardcoded.js"></script>
+
+    <div id="overlay" class="hidden"></div>
+
+    <div id="about-panel" class="about-panel-container">
+      <button id="close-about-btn" class="close-btn">&times;</button>
+      <h2>About Web Music</h2>
+      <p>
+        This music player is a personal project built with a passion for clean
+        design and a fluid user experience. It's created entirely with front-end
+        technologies to showcase the power of modern HTML, CSS, and JavaScript.
+      </p>
+      <h3>Technology Stack</h3>
+      <ul>
+        <li>HTML5 for semantic structure</li>
+        <li>CSS3 with Custom Variables for dynamic themes</li>
+        <li>Vanilla JavaScript for all interactivity</li>
+      </ul>
+      <h3>Developer</h3>
+      <p>
+        Feel free to connect with the developer on
+        <a href="https://github.com/" target="_blank">GitHub</a> or
+        <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>.
+      </p>
+    </div>
+    <div id="song-info-modal" class="song-info-modal-container hidden">
+      <button id="close-info-btn" class="close-btn">&times;</button>
+      <div class="modal-content">
+        <img id="modal-album-art" src="" alt="Album Art" />
+        <h2 id="modal-song-title">Song Title</h2>
+        <p id="modal-artist-album">Artist Name - Album Name</p>
+        <p id="modal-year">Year: 2025</p>
+      </div>
+    </div>
+  </body>
+</html>
