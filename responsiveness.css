@@ -1,0 +1,352 @@
+/* --- Song Info Modal Styles --- */
+
+.song-info-modal-container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* The centering trick */
+  width: 90%;
+  max-width: 400px;
+  height: auto;
+  background-color: var(--bg-dark);
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  z-index: 2000;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Use this class to hide the modal */
+.song-info-modal-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#modal-album-art {
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+#modal-song-title {
+  color: var(--text-primary);
+  font-size: 24px;
+}
+
+#modal-artist-album {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+#modal-year {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 15px;
+  opacity: 0.7;
+}
+
+/* The existing close button style will work, but we can reuse it */
+.song-info-modal-container .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 36px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* --- "About Us" Off-Canvas Panel Styles --- */
+
+/* The main container for the panel */
+.about-panel-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 350px; /* Panel width on desktop */
+  height: 100vh;
+  background-color: var(--bg-dark);
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.25);
+  padding: 40px 30px;
+  z-index: 2000; /* Ensure it's on top of everything */
+
+  /* Hide it off-screen to the right by default */
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
+}
+
+/* This class will be toggled by JS to slide the panel in */
+.about-panel-container.active {
+  transform: translateX(0);
+}
+
+/* Style for the content inside the panel */
+.about-panel-container h2 {
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+.about-panel-container h3 {
+  color: var(--text-primary);
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--accent-primary);
+  padding-bottom: 5px;
+}
+.about-panel-container p,
+.about-panel-container ul li {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.about-panel-container ul {
+  list-style-position: inside;
+  padding-left: 5px;
+}
+.about-panel-container a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.about-panel-container a:hover {
+  text-decoration: underline;
+}
+
+/* Style for the close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 36px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: var(--text-primary);
+}
+
+/* Style for the background overlay */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1999; /* Just below the panel */
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+#overlay.hidden {
+  opacity: 0;
+  pointer-events: none; /* Can't click on it when it's hidden */
+}
+
+/* --- Media Query for Mobile View --- */
+
+@media screen and (max-width: 900px) {
+  .playbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  /* --- KEY FIX #3: Make playbar sections stack and center correctly on mobile --- */
+  .playbar .left,
+  .playbar .center,
+  .playbar .right {
+    flex-basis: 100%;
+    justify-content: center;
+  }
+
+  .playbar .left {
+    order: 1;
+  }
+  .playbar .center {
+    order: 2;
+  }
+  .playbar .right {
+    order: 3;
+  }
+}
+@media screen and (max-width: 800px) {
+  /* Position the nav links off-screen to the right */
+  .nav-links {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    height: 25vh;
+    width: 73%;
+    background: var(--bg-dark); /* Use your theme background */
+    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 1500; /* Make sure it's on top */
+  }
+
+  /* The class that will slide the menu into view */
+  .nav-links.nav-active {
+    transform: translateX(0%);
+  }
+
+  /* Make the links display vertically */
+  .nav-links ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Show the hamburger icon on mobile */
+  .hamburger {
+    display: block;
+  }
+
+  /* Animation for the hamburger turning into an 'X' */
+  .hamburger.toggle .line:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  .hamburger.toggle .line:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.toggle .line:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+  .playbar {
+    height: 140px;
+  }
+
+  .bar2 .search input {
+    width: 290px;
+  }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px;
+    gap: 5px;
+  }
+  .bar2 {
+    gap: 50px;
+  }
+  .songs {
+    width: 90%;
+    max-height: 480px;
+    padding: 10px 0;
+  }
+
+  .song {
+    padding: 10px;
+  }
+
+  .song_info img {
+    width: 50px;
+  }
+
+  .play_button {
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 680px) {
+  .playbar {
+    height: 170px;
+  }
+  .cards {
+    /* width: 50px; */
+    min-width: 190px;
+  }
+
+  .part1 .h1 {
+    font-size: 41px;
+    font-weight: 400;
+  }
+  .part1 .h2 {
+    font-size: 26px;
+    font-weight: 400;
+  }
+  .heading h3 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+@media screen and (max-width: 600px) {
+  .about-panel-container {
+    width: 100%; /* Make the panel full-width on smaller screens */
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .bar2 {
+    gap: 6px;
+  }
+  .bar2 .search input {
+    max-width: 180px;
+  }
+  .part1 {
+    /* padding: 7px; */
+    display: none;
+  }
+  .heading h3 {
+    margin: 10px 0;
+  }
+  /* .songs {
+    width: 100%;
+    height: 280px;
+  } */
+}
+@media screen and (max-width: 450px) {
+  .bar1 {
+    gap: 5px;
+  }
+  .songs {
+    width: 100%;
+    /* Changed fixed height to max-height for better flexibility */
+    max-height: 250px;
+  }
+  .playbar {
+    height: 140px;
+    padding: 10px 20px;
+  }
+}
+@media screen and (max-width: 415px) {
+  .bar2 .search input {
+    max-width: 140px;
+  }
+  .center {
+    flex: 0.8;
+    max-width: 300px;
+    gap: 8px;
+  }
+
+  .center input[type="range"] {
+    width: 100px;
+  }
+
+  .center span {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .bar2 .search input {
+    max-width: 130px;
+  }
+  .listenNowBtn {
+    padding: 5px;
+  }
+}
