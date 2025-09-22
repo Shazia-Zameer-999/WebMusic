@@ -40,8 +40,6 @@ async function getSongs(folder) {
 }
 
 
-
-
 function playMusic(track, pause = false) {
 
     currentSong.src = track;
