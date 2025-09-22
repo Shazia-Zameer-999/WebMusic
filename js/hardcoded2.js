@@ -164,6 +164,7 @@ async function displayAlbums() {
             displaySongs(songs);
 
             playMusic(`/${currFolder}/${songs[0]}.mp3`);
+            // console.log(`/${currFolder}/${songs[0]}.mp3`)
 
 
 
@@ -435,7 +436,7 @@ async function main() {
 
     document.querySelector(".home").addEventListener("click", e => {
 
-        console.log(e.target)
+        // console.log(e.target)
 
     })
 
@@ -487,7 +488,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-        console.log(themeFiles)
+        // console.log(themeFiles)
 
         return themeFiles;
 

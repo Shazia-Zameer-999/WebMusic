@@ -1,22 +1,13 @@
-console.log("Let's write JavaScript");
-
 let currentSong = new Audio();
-
 let songs;
 
 let currFolder;
 
 let lastVolume = 1;
-
-
-
-
-
 async function getSongs(folder) {
 
     currFolder = folder;
 
-    // CORRECT: Path is relative to the server root.
 
     let a = await fetch(`/${folder}/`);
 
@@ -50,7 +41,6 @@ async function getSongs(folder) {
 
 
 
-// Replace your existing playMusic function with this one
 
 function playMusic(track, pause = false) {
 
@@ -60,7 +50,6 @@ function playMusic(track, pause = false) {
 
 
 
-    // Get references to the SVG elements
 
     const playIcon = document.getElementById('playIcon');
 
@@ -72,7 +61,6 @@ function playMusic(track, pause = false) {
 
         currentSong.play();
 
-        // Hide the play icon and show the pause icon
 
         playIcon.style.display = 'none';
 
@@ -80,7 +68,6 @@ function playMusic(track, pause = false) {
 
     } else {
 
-        // Hide the pause icon and show the play icon
 
         playIcon.style.display = 'block';
 
@@ -98,7 +85,6 @@ function playMusic(track, pause = false) {
 
 async function displayAlbums() {
 
-    // CORRECT: Path is relative to the server root.
 
     let a = await fetch(`/songs/`);
 
@@ -115,16 +101,13 @@ async function displayAlbums() {
     cardContainer.innerHTML = "";
 
 
-
     for (const e of Array.from(anchors)) {
 
         if (e.href.includes("/songs/") && !e.href.endsWith(".json") && !e.href.endsWith(".png")) {
 
             let folder = e.href.split("/songs/").pop().replace("/", "");
 
-            if (folder) {
-
-                // CORRECT: Path is relative to the server root.
+            if (folder && !folder.startsWith('.')) {
 
                 let metaResponse = await fetch(`/songs/${folder}/info.json`);
 
@@ -132,25 +115,22 @@ async function displayAlbums() {
 
 
 
-                // FINAL FIX: The image src now also starts with "/"
 
                 cardContainer.innerHTML += `<div data-folder="${folder}" class="card">
 
-<img src="/songs/${folder}/cover.png" alt="Cover for ${responseData.title}" />
+                <img src="/songs/${folder}/cover.png" alt="Cover for ${responseData.title}" />
 
-<h4>${responseData.title}</h4>
+                <h4>${responseData.title}</h4>
 
-<p>${responseData.description}</p>
+                <p>${responseData.description}</p>
 
-</div>`;
+                </div>`;
 
             }
 
         }
 
     }
-
-
 
     Array.from(document.getElementsByClassName("card")).forEach(e => {
 
@@ -160,15 +140,14 @@ async function displayAlbums() {
 
             displaySongs(songs);
 
+
             playMusic(`/${currFolder}/${songs[0]}.mp3`);
-
-
 
         });
 
     });
 
-    // playMusic(`/${currFolder}/${songs[0]}.mp3`, true);
+
 
 
 
@@ -252,11 +231,9 @@ function formatTime(seconds) {
 
 
 
-// Replace your existing main function with this one
 
 async function main() {
 
-    // --- Get references to the player buttons at the top ---
 
     const playPauseBtn = document.getElementById("playPauseBtn");
 
@@ -284,7 +261,6 @@ async function main() {
 
 
 
-    // --- Updated click listener with the correct logic ---
 
     playPauseBtn.addEventListener("click", () => {
 
@@ -448,11 +424,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // --- 1. Function to get all theme CSS files from the /themes/ directory ---
 
     async function getThemes() {
 
-        // We use fetch on the folder itself, which works because your server provides a directory listing!
 
         const response = await fetch('/themes/');
 
@@ -460,7 +434,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-        // Create a temporary div to parse the HTML response
 
         const div = document.createElement('div');
 
@@ -468,7 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-        // Find all links that point to a .css file
 
         const aTags = div.getElementsByTagName('a');
 
@@ -478,13 +450,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (a.href.endsWith('.css')) {
 
-                themeFiles.push(a.href.split('/').pop()); // Get just the filename
+                themeFiles.push(a.href.split('/').pop()); 
 
             }
 
         }
 
-        console.log(themeFiles)
 
         return themeFiles;
 
@@ -492,13 +463,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // --- 2. Function to create the dropdown items ---
 
     function populateDropdown(themes) {
 
         const ul = themeDropdown.querySelector('ul');
 
-        ul.innerHTML = ''; // Clear any existing items
+        ul.innerHTML = ''; 
 
 
 
@@ -506,13 +476,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const li = document.createElement('li');
 
-            // Create a user-friendly name from the filename
 
             const themeName = themeFile.replace('.css', '').replace(/([A-Z])/g, ' $1').trim();
 
             li.innerText = themeName;
 
-            li.dataset.theme = themeFile; // Store filename in a data attribute
+            li.dataset.theme = themeFile;
 
             ul.appendChild(li);
 
@@ -522,41 +491,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // --- 3. Logic to show/hide the dropdown ---
-
-    // And REPLACE it with this new code:
+    
 
     themesBtn.addEventListener("click", (event) => {
 
-        event.stopPropagation(); // Prevents the window click listener from immediately hiding it
-
-
-
-        // Get the position of the "Themes" button on the page
+        event.stopPropagation(); 
 
         const rect = themesBtn.getBoundingClientRect();
 
-
-
-        // Position the dropdown right below the button
-
-        // We add window.scrollX/Y to account for page scrolling
-
         themeDropdown.style.left = `${rect.left + window.scrollX}px`;
 
-        themeDropdown.style.top = `${rect.bottom + window.scrollY + 5}px`; // Added 5px for a small gap
-
-
-
-        // Finally, toggle the dropdown's visibility
-
+        themeDropdown.style.top = `${rect.bottom + window.scrollY + 5}px`; // 
         themeDropdown.classList.toggle("hidden");
 
     });
 
 
-
-    // Hide dropdown if user clicks anywhere else
 
     window.addEventListener("click", () => {
 
@@ -570,7 +520,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // --- 4. Logic to change the theme when an item is clicked ---
 
     themeDropdown.addEventListener("click", (event) => {
 
@@ -580,7 +529,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             themeLink.href = `/themes/${chosenTheme}`;
 
-            // Optional: Save the chosen theme so it persists on page reload
 
             localStorage.setItem('selectedTheme', chosenTheme);
 
@@ -590,12 +538,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // --- 5. Main function to initialize everything ---
 
     async function initializeThemeSwitcher() {
 
-        // Optional: Check if a theme was saved in localStorage from a previous visit
 
+        
         const savedTheme = localStorage.getItem('selectedTheme');
 
         if (savedTheme) {
@@ -616,7 +563,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initializeThemeSwitcher();
 
-    // --- Hamburger Menu Functionality ---
 
     const hamburger = document.querySelector(".hamburger");
 
@@ -626,22 +572,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     hamburger.addEventListener("click", () => {
 
-        // Toggle the 'nav-active' class to slide the menu in/out
 
         navLinks.classList.toggle("nav-active");
-
-
-
-        // Toggle the 'toggle' class to animate the hamburger icon
 
         hamburger.classList.toggle("toggle");
 
     });
 
     initializeSearch();
-    // --- "About Us" Panel Functionality ---
-
-    // This code should be placed after your DOMContentLoaded listener or at the end of your file
+   
 
     const aboutBtn = document.querySelector(".about");
     const aboutPanel = document.getElementById("about-panel");
@@ -649,41 +588,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlay = document.getElementById("overlay");
 
     if (aboutBtn && aboutPanel && closeAboutBtn && overlay) {
-        // Function to open the panel
         const openPanel = () => {
             aboutPanel.classList.add("active");
             overlay.classList.remove("hidden");
         };
 
-        // Function to close the panel
         const closePanel = () => {
             aboutPanel.classList.remove("active");
             overlay.classList.add("hidden");
         };
 
-        // Event Listeners
         aboutBtn.addEventListener("click", openPanel);
         closeAboutBtn.addEventListener("click", closePanel);
-        overlay.addEventListener("click", closePanel); // Also close when clicking the overlay
+        overlay.addEventListener("click", closePanel); 
     }
-    /* --- And replace it with this: --- */
     const homeBtn = document.querySelector(".home");
 
     homeBtn.addEventListener("click", () => {
-        // This command reloads the current page, just like hitting the browser's refresh button.
         location.reload();
     });
-    // --- "Listen Now" Button Functionality (Play Featured Album) ---
     const listenNowBtn = document.querySelector(".listenNowBtn");
 
     listenNowBtn.addEventListener("click", async () => {
-        // Load the songs from your main featured album
         await getSongs("songs/cs");
 
-        // Display that album's song list
         displaySongs(songs);
 
-        // Immediately play the first song from that list
         if (songs.length > 0) {
             playMusic(`/${currFolder}/${songs[0]}.mp3`);
         }
@@ -696,7 +626,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 main();
 
-// --- Live Search Functionality ---
 
 function initializeSearch() {
 
@@ -706,17 +635,14 @@ function initializeSearch() {
 
 
 
-    // This function will be called every time the user types
 
     const handleSearch = () => {
 
-        // 1. Get the user's query, make it lowercase for case-insensitive matching
 
         const query = searchInput.value.toLowerCase().trim();
 
 
 
-        // 2. Filter the "Featured Albums"
 
         const albums = albumContainer.querySelectorAll(".card");
 
@@ -728,12 +654,10 @@ function initializeSearch() {
 
 
 
-            // If the title or description includes the query, show the card. Otherwise, hide it.
 
             if (title.includes(query) || description.includes(query)) {
 
-                card.style.display = 'block'; // Or 'flex', 'grid' if you use that
-
+                card.style.display = 'block'; 
             } else {
 
                 card.style.display = 'none';
@@ -744,15 +668,11 @@ function initializeSearch() {
 
 
 
-        // 3. Filter the currently displayed song list
-
-        // We check if the global 'songs' array exists first
 
         if (window.songs && Array.isArray(window.songs)) {
 
             const filteredSongs = window.songs.filter(song => {
 
-                // We assume the song filename contains the title and artist
 
                 return song.toLowerCase().includes(query);
 
@@ -760,7 +680,6 @@ function initializeSearch() {
 
 
 
-            // We reuse your existing displaySongs function to render the filtered list!
 
             displaySongs(filteredSongs);
 
@@ -770,7 +689,6 @@ function initializeSearch() {
 
 
 
-    // Listen for the 'input' event, which fires every time the user types
 
     searchInput.addEventListener("input", handleSearch);
 
