@@ -132,6 +132,19 @@ That's it! The application should now be running in your browser.
 
 ---
 
+[![Shazia Zameer's GitHub stats](https://github-readme-stats.vercel.app/api?username=Shazia-Zameer-999&show_icons=true&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
+---
+
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Shazia-Zameer-999&layout=compact&theme=dracula)](https://github.com/anuraghazra/github-readme-stats)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Shazia-Zameer-999/PassOP-Password-Manager)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/Shazia-Zameer-999/PassOP-Password-Manager?style=social)
+
+[![trophy](https://github-profile-trophy.vercel.app/?username=Shazia-Zameer-999&theme=dracula&column=7)](https://github.com/ryo-ma/github-profile-trophy)
+
+
 <div align="center">
   <h3>Built with ❤️ by Daten Diva </h3>
 </div>
